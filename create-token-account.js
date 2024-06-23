@@ -1,0 +1,50 @@
+import { getOrCreateAssociatedTokenAccount } from "@solana/spl-token";
+import "dotenv/config";
+import {
+  getExplorerLink,
+  getKeypairFromEnvironment,
+} from "@solana-developers/helpers";
+
+import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
+const connection = new Connection(clusterApiUrl("devnet"));
+
+const user = getKeypairFromEnvironment("SECRET_KEY");
+
+console.log(
+  `🔑 Loaded our keypair securely, using an env file! Our public key is: ${user.publicKey.toBase58()}`
+);
+
+console.log("Receiver Public Key:", user.publicKey.toString());
+
+
+// Ensure the environment variable is set correctly
+if (!process.env.YOUR_TOKEN_MINT_ADDRESS_HERE) {
+    throw new Error("Environment variable YOUR_TOKEN_MINT_ADDRESS_HERE is not set.");
+}
+
+// Subtitute in your token mint account from create-token-mint.ts
+const tokenMintAccount = new PublicKey(
+    process.env.YOUR_TOKEN_MINT_ADDRESS_HERE
+);
+
+// Here we are making an associated token account for our own address, but we can 
+// make an ATA on any other wallet in devnet!
+// const recipient = new PublicKey("SOMEONE_ELSES_DEVNET_ADDRESS");
+const recipient = user.publicKey;
+
+const tokenAccount = await getOrCreateAssociatedTokenAccount(
+  connection,
+  user,
+  tokenMintAccount,
+  recipient
+);
+
+console.log(`Token Account: ${tokenAccount.address.toBase58()}`);
+
+const link = getExplorerLink(
+  "address",
+  tokenAccount.address.toBase58(),
+  "devnet"
+);
+
+console.log(`✅ Created token Account: ${link}`);

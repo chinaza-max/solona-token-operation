@@ -1,0 +1,21 @@
+{
+  "name": "token_amatbm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@metaplex-foundation/mpl-token-metadata": "^2.13.0",
+    "@solana-developers/helpers": "^2.3.0",
+    "@solana/spl-token": "^0.4.6",
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.4",
+    "web3": "^4.10.0"
+  }
+}

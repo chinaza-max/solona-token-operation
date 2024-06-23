@@ -1,0 +1,7 @@
+Note 
+
+TO CREATE A TOKEN UNDERSTAND THE FOLLOWING 
+
+1.  You need token mint 
+2.  A token mint account to store your token
+3.  A token mint account usually create from a public address of a user and the token mint address.
